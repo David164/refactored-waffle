@@ -1,0 +1,99 @@
+<!-- @@Formula:
+double impact;
+if(issue.get("Bug Impact").equals("Likely"))
+    impact = 0;
+if(issue.get("Bug Impact").equals("Possible"))
+    impact = 1;
+if(issue.get("Bug Impact").equals("Unlikely"))
+    impact = 2;
+if(issue.get("Bug Impact").equals("Rare"))
+    impact = 3;
+ 
+double severity;
+if(issue.get("Bug Severity").equals("Extreme"))
+    severity = 0;
+if(issue.get("Bug Severity").equals("High"))
+    severity = 1;
+if(issue.get("Bug Severity").equals("Medium"))
+    severity = 2;
+if(issue.get("Bug Severity").equals("Low"))
+    severity = 3;
+ 
+double priority = impact + severity;
+ 
+if(priority <= 1)
+    return "<font color='red'>&#216 <b> Blocker</font> (P0)</b>";
+if(priority <= 2)
+    return "<font color='mediumvioletred'>&#8657 <b> Critical</font> (P1)</b>";
+if(priority <=3 && severity <= 1)
+    return "<font color='mediumvioletred'>&#8657 <b> Critical</font> (P1)</b>";
+if(priority <= 4)
+    return "<font color='blueviolet'>&#8593 <b> Major</font> (P2)</b>";
+if(priority <= 5)
+    return "<font color='royalblue'>&#8595 <b> Minor</font> (P3)</b>";
+return "<font color='teal'>&#8659 <b> Trivial</font> (P4)</b>";
+-->
+ 
+ 
+Calculated Bug Impact
+<!-- @@Formula:
+double scen;
+if(issue.get("Scenario Likelihood").equals("Almost all of our users"))
+    scen = 1;
+if(issue.get("Scenario Likelihood").equals("More than half of our users"))
+    scen = 0.7;
+if(issue.get("Scenario Likelihood").equals("Less than half of our users"))
+    scen = 0.49;
+if(issue.get("Scenario Likelihood").equals("Over a quarter of our users"))
+    scen = 0.35;
+if(issue.get("Scenario Likelihood").equals("Less than a quarter of our users"))
+    scen = 0.24;
+if(issue.get("Scenario Likelihood").equals("Around 10% of our users"))
+    scen = 0.12;
+if(issue.get("Scenario Likelihood").equals("Around 5% of our users"))
+    scen = 0.06;
+ 
+double freq;
+if(issue.get("Repeatability").equals("Almost Always"))
+    freq = 1;
+if(issue.get("Repeatability").equals("Over half the time"))
+    freq = 0.7;
+if(issue.get("Repeatability").equals("Less than half the time"))
+    freq = 0.49;
+if(issue.get("Repeatability").equals("Over a quarter of the time"))
+    freq = 0.35;
+if(issue.get("Repeatability").equals("Less than a quarter of the time"))
+    freq = 0.24;
+if(issue.get("Repeatability").equals("Around 10% of the time"))
+    freq = 0.12;
+if(issue.get("Repeatability").equals("Around 5% of the time"))
+    freq = 0.06;
+ 
+double ttf;
+if(issue.get("Time to Failure").equals("Immediately"))
+    ttf = 0;
+if(issue.get("Time to Failure").equals("Within 15 min"))
+    ttf = 0.25;
+if(issue.get("Time to Failure").equals("Within 30 min"))
+    ttf = 0.5;
+if(issue.get("Time to Failure").equals("Within 1 hour"))
+    ttf = 1;
+if(issue.get("Time to Failure").equals("Within 2 hours"))
+    ttf = 2;
+if(issue.get("Time to Failure").equals("Within 3 hours"))
+    ttf = 3;
+if(issue.get("Time to Failure").equals("Within 4 hours"))
+    ttf = 4;
+ 
+double msh = 4;
+ 
+double mtbf = scen*freq*ttf + (1-(scen*freq))*msh;
+ 
+if(mtbf <= 2)
+    return "Likely";
+if(mtbf <= 3.5)
+    return "Possible";
+if(mtbf <= 3.75)
+    return "Unlikely";
+return "Rare";
+-->
